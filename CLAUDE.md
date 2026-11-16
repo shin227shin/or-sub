@@ -27,6 +27,8 @@ When asked to evaluate, review, or audit a landing page (by URL):
 
 3. Do not evaluate the LP directly in the root session.
 
+4. Show the orchestrator's report to the user **as returned** (full Markdown, including each axis's findings, actions and evidence). Do not condense it; at most add a short pointer to the weakest axis above it.
+
 ## Model assignment
 
 - **lp-orchestrator**: uses `opus` (thinking-heavy coordination — choosing the axes and detailing them per persona)
@@ -103,4 +105,5 @@ finding.
 - **No speculation.** Base every judgment on facts present in the LP content.
 - **Output language: English**, plain and clear. Subagents return only their Markdown section
   (no preamble or closing remarks); the orchestrator assembles the final report.
+- `WebFetch` returns a summary, not the raw page, so "verbatim" is not guaranteed. After the specialists return, the orchestrator sends all quotes to `lp-evidence-checker` (haiku, `curl` + `grep` against the raw HTML) and flags any quote it cannot find word for word.
 - Each subagent fetches the LP itself from the URL it is given (with WebFetch), so its evidence quotes come straight from the page.

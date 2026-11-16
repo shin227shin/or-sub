@@ -131,9 +131,13 @@ using your axis name as the section heading.
 
 ---
 
-## Step 4 — Merge
+## Step 4 — Check the evidence, then merge
 
-Combine the three responses into the final Markdown report. Do not rewrite the specialists' evaluations — only summarize at the top.
+`WebFetch` returns a summary of the page, so a specialist's "verbatim" quote can be a paraphrase. Once all three sections are back:
+
+1. Collect every quote under the specialists' "Evidence" headings and send them in **one** `Agent` call to `lp-evidence-checker` with the LP URL (this call depends on the specialists' output, so it is sequential, not part of the parallel dispatch in Step 3).
+2. Combine the three responses into the final Markdown report. Do not rewrite the specialists' evaluations — only summarize at the top. The only edit allowed inside a specialist section is to append ` ⚠ not found verbatim` to a quote the checker marked `NOT FOUND` (or ` ⚠ unverifiable` for `UNVERIFIABLE`).
+3. Fill the **Evidence check** line of the report with the checker's `Verified: X/N`. A score that rests mostly on flagged quotes should be called out in its one-line verdict in the Summary table.
 
 ---
 
@@ -145,6 +149,7 @@ Combine the three responses into the final Markdown report. Do not rewrite the s
 - **Target URL**: <URL>
 - **Target visitor persona**: <one-line summary>
 - **Evaluated on**: <YYYY-MM-DD>
+- **Evidence check**: <X/N quotes verified verbatim against the raw page>
 
 ## Evaluation axes chosen for this persona
 
